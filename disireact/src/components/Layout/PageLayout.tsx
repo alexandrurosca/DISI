@@ -2,7 +2,7 @@ import * as React from "react";
 import {Routes} from "../../constants/Routes";
 import {Route} from "react-router";
 import HomePage from "../Home/HomePage";
-import LoginPage from "../LoginPage";
+import LoginPage from "../Login/LoginPage";
 const PageLayout = () => {
 
     return (
