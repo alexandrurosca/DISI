@@ -5,7 +5,7 @@ import * as serviceWorker from './registerServiceWorker';
 
 
 import {applyMiddleware, createStore} from "redux";
-import createBrowserHistory from "history/createBrowserHistory";
+// import createBrowserHistory from "history/createBrowserHistory";
 import {composeWithDevTools} from "redux-devtools-extension";
 import createRootReducer from './redux/reducers/rootReducer';
 import thunk from "redux-thunk";
@@ -14,6 +14,7 @@ import {Provider} from "react-redux";
 import App from "./App";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
+import { createBrowserHistory } from 'history';
 
 export const publicUrl = process.env.PUBLIC_URL || "";
 
