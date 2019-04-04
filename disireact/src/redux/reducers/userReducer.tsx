@@ -10,11 +10,12 @@ interface IUserState {
 const initialState: IUserState = {
     isLoggedIn: false,
     userDetails: {
-        id: -1,
+        userId: -1,
         username: "",
         email: "",
         firstName: "",
         lastName: "",
+        amount: 0
     }
 };
 

@@ -13,21 +13,24 @@ interface ICreateAccountProps{
 }
 
 interface ICreateAccountState {
-    createUser: ICreateAccountDtoUser
+    username: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    password: string,
+    budget: number
 }
 
 class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
     constructor(props: any) {
         super(props);
         this.state = {
-            createUser: {
-                email: "",
-                firstName: "",
-                lastName: "",
-                password: "",
-                username: "",
-                budget: 0,
-            }
+            email: "",
+            firstName: "",
+            lastName: "",
+            password: "",
+            username: "",
+            budget: 0,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -37,7 +40,16 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
     public handleSubmit(event: any){
         event.preventDefault();
 
-        createAccount(this.state.createUser).then(response=>{
+        const newUser ={
+            email: this.state.email,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            password: this.state.password,
+            budget: this.state.budget,
+            username: this.state.username
+        } as ICreateAccountDtoUser;
+
+        createAccount(newUser).then(response=>{
             if(response !== undefined && response !== null){
                 this.props.userCreatedSuccess();
                 alert("User create")
@@ -57,11 +69,11 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
     }
 
     public validateForm() {
-        return this.state.createUser.username.length > 0
-            && this.state.createUser.password.length > 0
-            && this.state.createUser.firstName.length > 0
-            && this.state.createUser.lastName.length > 0
-            &&  !isNaN(Number(this.state.createUser.budget));
+        return this.state.username.length > 0
+            && this.state.password.length > 0
+            && this.state.firstName.length > 0
+            && this.state.lastName.length > 0
+            &&  !isNaN(Number(this.state.budget));
     }
 
     public render(){
@@ -74,14 +86,14 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
                         <FormControl
                             autoFocus={true}
                             type="text"
-                            value={this.state.createUser.email}
+                            value={this.state.email}
                             onChange={this.handleChange}
                         />
                     </FormGroup>
                     <FormGroup controlId="password" bsSize="large">
                         <ControlLabel>Password</ControlLabel>
                         <FormControl
-                            value={this.state.createUser.password}
+                            value={this.state.password}
                             onChange={this.handleChange}
                             type="password"
                         />
@@ -90,7 +102,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
                     <FormGroup controlId="password" bsSize="large">
                         <ControlLabel>First Name</ControlLabel>
                         <FormControl
-                            value={this.state.createUser.firstName}
+                            value={this.state.firstName}
                             onChange={this.handleChange}
                             type="text"
                         />
@@ -100,7 +112,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
                     <FormGroup controlId="password" bsSize="large">
                         <ControlLabel>Last Name</ControlLabel>
                         <FormControl
-                            value={this.state.createUser.lastName}
+                            value={this.state.lastName}
                             onChange={this.handleChange}
                             type="text"
                         />
@@ -109,7 +121,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
                     <FormGroup controlId="password" bsSize="large">
                         <ControlLabel>Budget</ControlLabel>
                         <FormControl
-                            value={this.state.createUser.budget}
+                            value={this.state.budget}
                             onChange={this.handleChange}
                             type="text"
                         />
