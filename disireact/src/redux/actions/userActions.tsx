@@ -25,6 +25,12 @@ export function setUserAction(user: IUserDto): any  {
     }
 }
 
+export function userCreatedSuccess(): any  {
+    return (dispatch: any) => {
+        dispatch(push(Routes.LOGIN_PAGE));
+    }
+}
+
 export function doLogoutAction(): any {
     return (dispatch: any) => {
         dispatch(UserActions.resetLoggedUserAction());
