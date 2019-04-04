@@ -51,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 //       userRepository.save(new User(1L,"$2a$10$BimKSSncecQvQFxwwUdCmeBxj6wcUqAR3dIwUOBHaImicibEXP/cK","","","",true
 //       , new Authorities(1L, "admin", "ROLE_ADMIN")));
-
+        // asdasd
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/login").permitAll()
