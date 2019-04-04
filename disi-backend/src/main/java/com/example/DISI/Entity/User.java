@@ -9,8 +9,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userID;
 
-
-
     @Column
     private String password;
 
@@ -26,18 +24,32 @@ public class User {
     @Column
     private boolean enabled;
 
+    public String getUsername() {
+        return username;
+    }
+
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Column
+    private String username;
+
     @OneToOne
     private Authorities authority;
 
     public User() {
     }
 
-    public User( String password, String email, String firstName, String lastName, boolean enabled, Authorities authority) {
+    public User(String password, String email, String firstName, String lastName, boolean enabled, String username, Authorities authority) {
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
+        this.username = username;
         this.authority = authority;
     }
 

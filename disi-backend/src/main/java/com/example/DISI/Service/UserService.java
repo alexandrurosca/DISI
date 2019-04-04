@@ -17,4 +17,11 @@ public class UserService {
         user.setPassword("");
         return user;
     }
+
+    public void createAccount(){
+
+
+
+    }
+
 }

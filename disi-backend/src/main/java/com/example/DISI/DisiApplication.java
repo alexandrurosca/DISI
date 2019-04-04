@@ -11,8 +11,6 @@ public class DisiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DisiApplication.class, args);
-
-
 	}
 
 }

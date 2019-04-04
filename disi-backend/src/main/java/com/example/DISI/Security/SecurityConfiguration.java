@@ -49,8 +49,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-       userRepository.save(new User(1L,"$2a$10$BimKSSncecQvQFxwwUdCmeBxj6wcUqAR3dIwUOBHaImicibEXP/cK","","","",true
-       , new Authorities(1L, "admin", "ROLE_ADMIN")));
+//       userRepository.save(new User(1L,"$2a$10$BimKSSncecQvQFxwwUdCmeBxj6wcUqAR3dIwUOBHaImicibEXP/cK","","","",true
+//       , new Authorities(1L, "admin", "ROLE_ADMIN")));
 
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/logout").permitAll()
