@@ -53,6 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //       , new Authorities(1L, "admin", "ROLE_ADMIN")));
         // asdasd
         http.cors().and().csrf().disable().authorizeRequests()
+                .antMatchers("/createAccount").permitAll()
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()

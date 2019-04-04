@@ -53,7 +53,6 @@ public class User {
 
     public User(Long userID,  String password, String email, String firstName, String lastName, boolean enabled, Authorities authority) {
         this.userID = userID;
-
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -64,11 +63,11 @@ public class User {
 
 
 
-    public long getUserID() {
+    public Long getUserID() {
         return userID;
     }
 
-    public void setUserID(long userID) {
+    public void setUserID(Long userID) {
         this.userID = userID;
     }
 

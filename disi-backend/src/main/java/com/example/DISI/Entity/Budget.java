@@ -1,7 +1,8 @@
 package com.example.DISI.Entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
+
 
 @Entity
 public class Budget {
@@ -14,19 +15,19 @@ public class Budget {
     private double amount;
 
     @Column
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column
-    private  Date endDate;
+    private  LocalDate endDate;
 
     @ManyToOne
     private User user;
 
-    public long getBudgetID() {
+    public Long getBudgetID() {
         return budgetID;
     }
 
-    public void setBudgetID(long budgetID) {
+    public void setBudgetID(Long budgetID) {
         this.budgetID = budgetID;
     }
 
@@ -38,19 +39,19 @@ public class Budget {
         this.amount = amount;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
