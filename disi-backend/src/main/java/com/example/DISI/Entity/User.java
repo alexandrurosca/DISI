@@ -24,21 +24,19 @@ public class User {
     @Column
     private boolean enabled;
 
-    public String getUsername() {
-        return username;
-    }
-
-
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Column
     private String username;
 
     @OneToOne
     private Authorities authority;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public User() {
     }

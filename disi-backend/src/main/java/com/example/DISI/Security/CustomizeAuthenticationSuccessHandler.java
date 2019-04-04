@@ -1,5 +1,6 @@
 package com.example.DISI.Security;
 
+import com.example.DISI.DTO.UserDTO;
 import com.example.DISI.Entity.User;
 import com.example.DISI.Service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +37,7 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
         response.setStatus(HttpServletResponse.SC_OK);
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        User userDto = userService.findUserByUsername(currentUser);
+        UserDTO userDto = userService.createDTO(currentUser);
         if(userDto != null) {
             logger.info("Log in success for: " + userDto.toString());
             String employeeJsonString = ow.writeValueAsString(userDto);
