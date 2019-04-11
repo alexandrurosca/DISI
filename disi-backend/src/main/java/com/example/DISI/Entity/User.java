@@ -24,30 +24,20 @@ public class User {
     @Column
     private boolean enabled;
 
-    @Column
-    private String username;
-
     @OneToOne
+    @JoinColumn(name = "username")
     private Authorities authority;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public User() {
     }
 
-    public User(String password, String email, String firstName, String lastName, boolean enabled, String username, Authorities authority) {
+    public User(String password, String email, String firstName, String lastName, boolean enabled, Authorities authority) {
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
-        this.username = username;
         this.authority = authority;
     }
 
@@ -70,7 +60,6 @@ public class User {
     public void setUserID(Long userID) {
         this.userID = userID;
     }
-
 
     public String getPassword() {
         return password;

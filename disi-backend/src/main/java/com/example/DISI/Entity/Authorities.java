@@ -5,10 +5,7 @@ import javax.persistence.*;
 public class Authorities {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
+    @Column(length = 30)
     private String username;
 
     @Column
@@ -23,19 +20,6 @@ public class Authorities {
 
     }
 
-
-    public Authorities(Long id, String username, String authority) {
-        this.username = username;
-        this.authority = authority;
-        this.id = id;
-    }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getAuthority() {
         return authority;

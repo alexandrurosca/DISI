@@ -47,7 +47,7 @@ public class UserService {
 
         User newUser = new User();
 
-        newUser.setUsername(userDTO.getUsername());
+
         newUser.setPassword(userDTO.getPassword());
         newUser.setLastName(userDTO.getLastName());
         newUser.setFirstName(userDTO.getFirstName());
@@ -84,7 +84,7 @@ public class UserService {
         User user = findUserByUsername(currentUser);
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setUsername(user.getUsername());
+        userDTO.setUsername(user.getAuthority().getUsername());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setEmail(user.getEmail());
