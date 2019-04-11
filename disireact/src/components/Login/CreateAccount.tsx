@@ -73,7 +73,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
             && this.state.password.length > 0
             && this.state.firstName.length > 0
             && this.state.lastName.length > 0
-            &&  !isNaN(Number(this.state.budget));
+            &&  !isNaN(Number(this.state.budget)) && Number(this.state.budget) >= 0;
     }
 
     public render(){

@@ -57,6 +57,7 @@ public class UserService {
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setEmail(userDTO.getEmail());
         newUser.setAuthority(authority);
+        newUser.setEnabled(true);
 
         newUser = userRepository.save(newUser);
 
