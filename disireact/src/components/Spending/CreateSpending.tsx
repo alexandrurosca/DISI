@@ -39,8 +39,8 @@ class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingStat
         } as ICreateSpendingDtoUser;
        createSpending(newSpending).then(response=>{
             if(response !== undefined && response !== null){
-                const currentUser = response as IUserDto;
-                this.props.setUser(currentUser);
+                const currentSpending = response as ICreateSpendingDtoUser;
+                this.props.setUser(currentSpending);
             }else{
                 alert("Bad credentials!");
             }
@@ -57,7 +57,11 @@ class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingStat
     }
 
     public validateForm() {
-        return this.state.reason.length > 0 && this.state.amount.length > 0;
+        const now = new Date();
+        const mydate = new Date(this.state.date);
+        return this.state.reason.length > 0 && this.state.amount.length > 0
+            && !isNaN(Number(this.state.amount)) && Number(this.state.amount) > 0
+            && mydate <= now;
     }
 
     public render(){
