@@ -39,8 +39,8 @@ class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingStat
         } as ICreateSpendingDtoUser;
        createSpending(newSpending).then(response=>{
             if(response !== undefined && response !== null){
-                const currentUser = response as IUserDto;
-                this.props.setUser(currentUser);
+                const currentSpending = response as ICreateSpendingDtoUser;
+                this.props.setUser(currentSpending);
             }else{
                 alert("Bad credentials!");
             }
