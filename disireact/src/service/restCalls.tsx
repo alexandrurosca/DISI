@@ -33,17 +33,11 @@ export function createAccount(newAccount: ICreateAccountDtoUser): Promise<any>{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            credentials: "include",
             method: "POST",
             body: JSON.stringify(newAccount)
 
         }
-    ).then(response => {
-        console.log("status code: " + response.status);
-        return response.json();
-
-    }).then(data=>{
-
+    ).then(data=>{
         return data;
     }).catch(error => {
         console.log("error: " + error)

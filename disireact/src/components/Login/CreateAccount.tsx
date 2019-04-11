@@ -50,11 +50,11 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
         } as ICreateAccountDtoUser;
 
         createAccount(newUser).then(response=>{
-            if(response !== undefined && response !== null){
+            if(response.status === 200){
                 this.props.userCreatedSuccess();
                 alert("User create")
             }else{
-                alert("Bad credentials!");
+                alert("Can't create user");
             }
         })
     }
@@ -81,11 +81,22 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
         return(
             <div className="Login">
                 <form onSubmit={this.handleSubmit}>
+
                     <FormGroup controlId="username" bsSize="large">
-                        <ControlLabel>Email</ControlLabel>
+                        <ControlLabel>Username:</ControlLabel>
                         <FormControl
                             autoFocus={true}
                             type="text"
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                        />
+                    </FormGroup>
+
+                    <FormGroup controlId="email" bsSize="large">
+                        <ControlLabel>Email</ControlLabel>
+                        <FormControl
+                            autoFocus={true}
+                            type="email"
                             value={this.state.email}
                             onChange={this.handleChange}
                         />
@@ -99,7 +110,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
                         />
                     </FormGroup>
 
-                    <FormGroup controlId="password" bsSize="large">
+                    <FormGroup controlId="firstName" bsSize="large">
                         <ControlLabel>First Name</ControlLabel>
                         <FormControl
                             value={this.state.firstName}
@@ -109,7 +120,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
                     </FormGroup>
 
 
-                    <FormGroup controlId="password" bsSize="large">
+                    <FormGroup controlId="lastName" bsSize="large">
                         <ControlLabel>Last Name</ControlLabel>
                         <FormControl
                             value={this.state.lastName}
@@ -118,7 +129,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
                         />
                     </FormGroup>
 
-                    <FormGroup controlId="password" bsSize="large">
+                    <FormGroup controlId="budget" bsSize="large">
                         <ControlLabel>Budget</ControlLabel>
                         <FormControl
                             value={this.state.budget}
