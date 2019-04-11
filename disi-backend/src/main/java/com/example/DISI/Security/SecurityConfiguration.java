@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        createUser();
+       // createUser();
 
         // asdasd
         http.cors().and().csrf().disable().authorizeRequests()
@@ -76,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private void createUser(){
         Authorities a = new Authorities("admin","ROLE_ADMIN");
         a = authorityRepository.save(a);
-        User u = new User("$2a$10$BimKSSncecQvQFxwwUdCmeBxj6wcUqAR3dIwUOBHaImicibEXP/cK","","","",true
+        User u = new User("admin","","","",true
                 , a);
         u = userRepository.save(u);
 
