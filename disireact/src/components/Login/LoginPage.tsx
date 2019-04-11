@@ -32,7 +32,6 @@ class Login extends Component<ILoginProps, ILoginState>{
         event.preventDefault();
 
         doLogin(this.state.username, this.state.password).then(response=>{
-            console.log("response: " + JSON.stringify(response));
             if(response !== undefined && response !== null){
                 const currentUser = response as IUserDto;
                 this.props.setUser(currentUser);
