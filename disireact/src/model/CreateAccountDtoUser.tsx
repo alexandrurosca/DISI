@@ -8,3 +8,4 @@ interface  ICreateAccountDtoUser {
     password: string,
     budget: number
 }
+
