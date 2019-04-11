@@ -1,8 +1,12 @@
 package com.example.DISI.Security;
 
 import com.example.DISI.Entity.Authorities;
+import com.example.DISI.Entity.Budget;
 import com.example.DISI.Entity.User;
+import com.example.DISI.Repository.AuthorityRepository;
+import com.example.DISI.Repository.BudgetRepository;
 import com.example.DISI.Repository.UserRepository;
+import com.example.DISI.Service.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +18,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    AuthorityRepository authorityRepository;
+
+    @Autowired
+    BudgetRepository budgetRepository;
 
     @Autowired
     CustomizeAuthenticationSuccessHandler successHandler;
@@ -48,17 +60,37 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        createUser();
 
-//       userRepository.save(new User(1L,"$2a$10$BimKSSncecQvQFxwwUdCmeBxj6wcUqAR3dIwUOBHaImicibEXP/cK","","","",true
-//       , new Authorities(1L, "admin", "ROLE_ADMIN")));
         // asdasd
         http.cors().and().csrf().disable().authorizeRequests()
+                .antMatchers("/createAccount").permitAll()
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic()
                 .and().formLogin().successHandler(successHandler);
 
+    }
+
+    private void createUser(){
+        Authorities a = new Authorities("admin","ROLE_ADMIN");
+        a = authorityRepository.save(a);
+        User u = new User("$2a$10$BimKSSncecQvQFxwwUdCmeBxj6wcUqAR3dIwUOBHaImicibEXP/cK","","","",true
+                , a);
+        u = userRepository.save(u);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate today = LocalDate.now();
+        today.format(formatter);
+
+        Budget budget = new Budget();
+        budget.setAmount(200);
+        budget.setUser(u);
+        budget.setStartDate(today);
+        budget.setEndDate(today.plus(Constants.PERIOD, ChronoUnit.DAYS));
+
+        budgetRepository.save(budget);
     }
 
 }

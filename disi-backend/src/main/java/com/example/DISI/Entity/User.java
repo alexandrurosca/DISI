@@ -24,36 +24,25 @@ public class User {
     @Column
     private boolean enabled;
 
-    @Column
-    private String username;
-
     @OneToOne
+    @JoinColumn(name = "username")
     private Authorities authority;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public User() {
     }
 
-    public User(String password, String email, String firstName, String lastName, boolean enabled, String username, Authorities authority) {
+    public User(String password, String email, String firstName, String lastName, boolean enabled, Authorities authority) {
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
-        this.username = username;
         this.authority = authority;
     }
 
     public User(Long userID,  String password, String email, String firstName, String lastName, boolean enabled, Authorities authority) {
         this.userID = userID;
-
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -64,14 +53,13 @@ public class User {
 
 
 
-    public long getUserID() {
+    public Long getUserID() {
         return userID;
     }
 
-    public void setUserID(long userID) {
+    public void setUserID(Long userID) {
         this.userID = userID;
     }
-
 
     public String getPassword() {
         return password;
