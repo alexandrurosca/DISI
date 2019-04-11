@@ -8,6 +8,7 @@ import com.example.DISI.Repository.AuthorityRepository;
 import com.example.DISI.Repository.BudgetRepository;
 import com.example.DISI.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -27,6 +28,9 @@ public class UserService {
     BudgetRepository budgetRepository;
     @Autowired
     AuthorityRepository authorityRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public User findUserByUsername(String currentUser) {
 
@@ -48,7 +52,7 @@ public class UserService {
         User newUser = new User();
 
 
-        newUser.setPassword(userDTO.getPassword());
+        newUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         newUser.setLastName(userDTO.getLastName());
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setEmail(userDTO.getEmail());
@@ -73,8 +77,8 @@ public class UserService {
     }
 
     private void validateUser(UserDTO userDTO) {
-
-        User exitingUser = userRepository.findByAuthorityUsername(userDTO.getUsername());
+            //asda
+//      /  User exitingUser = userRepository.findByAuthorityUsername(userDTO.getUsername());
         //TODO
 
     }
