@@ -19,11 +19,12 @@ public class EndPoints {
 
     @CrossOrigin
     @PostMapping("/createAccount")
-    public ResponseEntity createAccount(@RequestBody UserDTO userDTO){
+    public ResponseEntity<String> createAccount(@RequestBody UserDTO userDTO){
 
-        userService.createAccount(userDTO);
-
-        return new ResponseEntity(HttpStatus.OK);
-
+        String response = userService.createAccount(userDTO);
+        if(response.equals("")) {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else return  new ResponseEntity(response,HttpStatus.NOT_ACCEPTABLE);
     }
 }
