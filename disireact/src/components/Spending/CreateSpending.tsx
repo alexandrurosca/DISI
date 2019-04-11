@@ -3,18 +3,18 @@ import {Component} from "react";
 import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import {setUserAction} from "../../redux/actions/userActions";
 import {connect} from "react-redux";
-// import "DISI/disireact/src/components/Login/Login.css";
 import "../Login/Login.css";
+import {createSpending} from "../../service/restCalls";
 
 interface ICreateSpendingProps{
     setUser: any,
-        logout: any,
+    logout: any,
 }
 
 interface ICreateSPendingState {
     reason: string,
-        amount: string,
-        date: string,
+    amount: string,
+    date: string,
 }
 
 class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingState>{
@@ -32,15 +32,19 @@ class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingStat
 
     public handleSubmit(event: any){
         event.preventDefault();
-
-       /* doLogin(this.state.reason, this.state.amount, this.state.date).then(response=>{
+        const newSpending = {
+            reason: this.state.reason,
+            amount: this.state.amount,
+            date: this.state.date
+        } as ICreateSpendingDtoUser;
+       createSpending(newSpending).then(response=>{
             if(response !== undefined && response !== null){
                 const currentUser = response as IUserDto;
                 this.props.setUser(currentUser);
             }else{
                 alert("Bad credentials!");
             }
-        })*/
+        })
     }
 
     public handleChange (event: any){
@@ -70,7 +74,7 @@ class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingStat
                             onChange={this.handleChange}
                         />
                     </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
+                    <FormGroup controlId="amount" bsSize="large">
                         <ControlLabel>Amount</ControlLabel>
                         <FormControl
                             value={this.state.amount}
