@@ -16,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -39,9 +41,13 @@ public class UserService {
         return user;
     }
 
-    public void createAccount(UserDTO userDTO){
+    public String createAccount(UserDTO userDTO) {
 
-       validateUser(userDTO);
+        String error = validateUser(userDTO);
+
+        if(error.equals("")){
+            return error;
+        }
 
         Authorities authority = new Authorities();
         authority.setAuthority("ROLE_ADMIN");
@@ -56,6 +62,7 @@ public class UserService {
         newUser.setLastName(userDTO.getLastName());
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setEmail(userDTO.getEmail());
+        newUser.setEnabled(true);
         newUser.setAuthority(authority);
         newUser.setEnabled(true);
 
@@ -75,13 +82,37 @@ public class UserService {
 
         budgetRepository.save(budget);
 
+        return error;
+
     }
 
-    private void validateUser(UserDTO userDTO) {
-            //asda
-//      /  User exitingUser = userRepository.findByAuthorityUsername(userDTO.getUsername());
-        //TODO
+    private String validateUser(UserDTO userDTO) {
 
+        if (userDTO.getUsername() == null || userDTO.getUsername().isEmpty()) {
+            return "Username required";
+        }
+        User exitingUser = userRepository.findByAuthorityUsername(userDTO.getUsername());
+
+        if (exitingUser != null) {
+            return "Username exists";
+        }
+        if (userDTO.getPassword() == null || userDTO.getPassword().isEmpty()) {
+            return "Password required";
+        }
+        if (userDTO.getLastName() == null || userDTO.getLastName().isEmpty()) {
+            return "Last Name required";
+        }
+        if (userDTO.getFirstName() == null || userDTO.getFirstName().isEmpty()) {
+            return "First Name required";
+        }
+        if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
+            return "Email required";
+        }
+        if (userDTO.getAmount() <= 0 ) {
+            return "Amount invalid";
+        }
+
+        return "";
     }
 
     public UserDTO createDTO(String currentUser) {
