@@ -10,14 +10,9 @@ import com.example.DISI.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service
@@ -56,7 +51,6 @@ public class UserService {
         authority = authorityRepository.save(authority);
 
         User newUser = new User();
-
 
         newUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         newUser.setLastName(userDTO.getLastName());
