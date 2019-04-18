@@ -40,7 +40,7 @@ public class UserService {
 
         String error = validateUser(userDTO);
 
-        if(error.equals("")){
+        if(!error.equals("")){
             return error;
         }
 

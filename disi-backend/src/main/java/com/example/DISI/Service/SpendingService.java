@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class SpendingService {
     Logger LOGGER = LoggerFactory.getLogger(SpendingService.class);
@@ -36,7 +39,6 @@ public class SpendingService {
         }
 
         Spending spending = new Spending();
-
 
         spending.setAmount(spendingDTO.getAmount());
         spending.setReason(spending.getReason());
@@ -74,6 +76,21 @@ public class SpendingService {
         }
 
         return "";
+    }
+
+    public List<SpendingDTO> getAllSpendings(String username){
+        User user = userRepository.findByAuthorityUsername(username);
+        List<Spending> spendingList = spendingRepository.findAllByBudgetUserUserID(user.getUserID());
+        List<SpendingDTO> spendingDTOList = new ArrayList<>();
+        spendingList.forEach( spending -> {
+            SpendingDTO  spendingDTO = new SpendingDTO();
+            spendingDTO.setAmount(spending.getAmount());
+            spendingDTO.setMakingDate(spending.getMakingDate());
+            spendingDTO.setReason(spending.getReason());
+            spendingDTO.setSpendingID(spending.getSpendingID());
+            spendingDTOList.add(spendingDTO);
+        });
+        return spendingDTOList;
     }
 
 }
