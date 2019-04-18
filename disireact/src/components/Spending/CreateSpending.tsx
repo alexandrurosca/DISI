@@ -3,7 +3,7 @@ import {Component} from "react";
 import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import {setUserAction} from "../../redux/actions/userActions";
 import {connect} from "react-redux";
-import "../Login/Login.css";
+import "./CreateSpending.css";
 import {createSpending} from "../../service/restCalls";
 
 interface ICreateSpendingProps{
