@@ -5,6 +5,8 @@ import "./Login.css";
 import {doLogin} from "../../service/restCalls";
 import {setUserAction} from "../../redux/actions/userActions";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+import {Routes} from "../../constants/Routes";
 
 interface ILoginProps{
     setUser: any,
@@ -83,6 +85,7 @@ class Login extends Component<ILoginProps, ILoginState>{
                         type="submit">
                         Login
                     </Button>
+                    <Link to={Routes.CREATE_ACCOUNT}>Register</Link>
                 </form>
             </div>
         )
