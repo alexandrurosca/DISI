@@ -35,7 +35,7 @@ public class SpendingController {
     }
 
     @CrossOrigin
-    @GetMapping("/createSpending")
+    @GetMapping("/listSpending")
     public ResponseEntity<List<SpendingDTO>> listAccount(){
 
         Long userID= 0L;
