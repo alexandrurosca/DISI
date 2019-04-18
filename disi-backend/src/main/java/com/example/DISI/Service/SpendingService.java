@@ -17,16 +17,16 @@ public class SpendingService {
     @Autowired
     BudgetRepository budgetRepository;
 
-    public String createSpending(SpendingDTO spendingDTO){
+    public String createSpending(SpendingDTO spendingDTO) {
 
-        //TODO validation
-        String error = "   ";
+        String error = validateSpending(spendingDTO);
 
-        if(error.equals("")){
+        if (error.equals("")) {
             return error;
         }
 
         Spending spending = new Spending();
+
 
         spending.setAmount(spendingDTO.getAmount());
         spending.setReason(spendingDTO.getReason());
@@ -36,10 +36,31 @@ public class SpendingService {
 
         spending.setBudget(budget);
 
-        spending = spendingRepository.save(spending);
+        spendingRepository.save(spending);
 
         return error;
 
+    }
+
+    private String validateSpending(SpendingDTO spendingDTO) {
+
+        if (spendingDTO.getAmount() < 0) {
+            return "Amount invalid";
+        }
+
+        if (spendingDTO.getReason() == null) {
+            return "Reason required ";
+        }
+
+        if (spendingDTO.getMakingDate() == null) {
+            return "Date required";
+        }
+
+        if (spendingDTO.getUserID() == null) {
+            return "User invalid";
+        }
+
+        return "";
     }
 
 }
