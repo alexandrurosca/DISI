@@ -10,6 +10,9 @@ import com.example.DISI.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class SpendingService {
 
@@ -32,7 +35,6 @@ public class SpendingService {
         }
 
         Spending spending = new Spending();
-
 
         spending.setAmount(spendingDTO.getAmount());
         spending.setReason(spendingDTO.getReason());
@@ -67,6 +69,21 @@ public class SpendingService {
         }
 
         return "";
+    }
+
+    public List<SpendingDTO> getAllSpendings(Long userID){
+
+        List<Spending> spendingList = spendingRepository.findAllByBudgetUserUserID(userID);
+        List<SpendingDTO> spendingDTOList = new ArrayList<>();
+        spendingList.forEach( spending -> {
+            SpendingDTO  spendingDTO = new SpendingDTO();
+            spendingDTO.setAmount(spending.getAmount());
+            spendingDTO.setMakingDate(spending.getMakingDate());
+            spendingDTO.setReason(spending.getReason());
+            spendingDTO.setSpendingID(spending.getSpendingID());
+            spendingDTOList.add(spendingDTO);
+        });
+        return spendingDTOList;
     }
 
 }

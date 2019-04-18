@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 public class SpendingDTO {
 
+    private Long spendingID;
+
     private double amount;
 
     private Enum<Constants.Reason> reason;
@@ -27,10 +29,6 @@ public class SpendingDTO {
         return reason;
     }
 
-    public void setReason(Enum reason) {
-        this.reason = reason;
-    }
-
     public LocalDate getMakingDate() {
         return makingDate;
     }
@@ -45,5 +43,17 @@ public class SpendingDTO {
 
     public void setUserID(Long userID) {
         this.userID = userID;
+    }
+
+    public Long getSpendingID() {
+        return spendingID;
+    }
+
+    public void setSpendingID(Long spendingID) {
+        this.spendingID = spendingID;
+    }
+
+    public void setReason(Enum<Constants.Reason> reason) {
+        this.reason = reason;
     }
 }
