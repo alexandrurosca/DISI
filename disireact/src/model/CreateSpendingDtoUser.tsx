@@ -1,5 +1,6 @@
-interface  ICreateSpendingDtoUser {
+interface  ISpendingDto {
     reason: string,
     amount: string,
-    date: string
+    date: string,
+    id: number
 }

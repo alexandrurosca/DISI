@@ -1,15 +1,10 @@
 import * as React from "react";
 import {Component} from "react";
 import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
-import {setUserAction} from "../../redux/actions/userActions";
-import {connect} from "react-redux";
 import "./CreateSpending.css";
 import {createSpending} from "../../service/restCalls";
+import {Reasons} from "../../constants/Constants";
 
-interface ICreateSpendingProps{
-    setUser: any,
-    logout: any,
-}
 
 interface ICreateSPendingState {
     reason: string,
@@ -17,7 +12,8 @@ interface ICreateSPendingState {
     date: string,
 }
 
-class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingState>{
+
+class CreateSpending extends Component<{},ICreateSPendingState>{
     constructor(props: any) {
         super(props);
         this.state = {
@@ -36,13 +32,12 @@ class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingStat
             reason: this.state.reason,
             amount: this.state.amount,
             date: this.state.date
-        } as ICreateSpendingDtoUser;
+            // userID: localStorage.getItem(Constants)
+        } as ISpendingDto;
        createSpending(newSpending).then(response=>{
             if(response !== undefined && response !== null){
-                const currentSpending = response as ICreateSpendingDtoUser;
-                this.props.setUser(currentSpending);
-            }else{
-                alert("Bad credentials!");
+                const currentSpending = response as ISpendingDto;
+                console.log(JSON.stringify(currentSpending));
             }
         })
     }
@@ -60,23 +55,30 @@ class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingStat
         const now = new Date();
         const mydate = new Date(this.state.date);
         return this.state.reason.length > 0 && this.state.amount.length > 0
-            && !isNaN(Number(this.state.amount)) && Number(this.state.amount) > 0
-            && mydate <= now;
+            && !isNaN(Number(this.state.amount)) && Number(this.state.amount) >= 0
+            && (now.getDate() - mydate.getDate() > 0);
     }
 
     public render(){
+        const  reasons= Object.keys(Reasons).map((item, index) => {
+            return (
+                <option value={Reasons[item]} key={index}>
+                    {Reasons[item]}
+                </option>
+            )
+        });
+
 
         return(
             <div className="CreateSpending">
                 <form onSubmit={this.handleSubmit}>
                     <FormGroup controlId="reason" bsSize="large">
                         <ControlLabel>Reason</ControlLabel>
-                        <FormControl
-                            autoFocus={true}
-                            type="text"
-                            value={this.state.reason}
-                            onChange={this.handleChange}
-                        />
+                        <FormControl componentClass="select"
+                                     onChange={this.handleChange}
+                                     value={this.state.reason}>
+                            {reasons}
+                        </FormControl>
                     </FormGroup>
                     <FormGroup controlId="amount" bsSize="large">
                         <ControlLabel>Amount</ControlLabel>
@@ -108,11 +110,6 @@ class CreateSpending extends Component<ICreateSpendingProps, ICreateSPendingStat
 
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        setUser: (user: IUserDto) => dispatch(setUserAction(user)),
-        // logout: () => dispatch(doLogoutAction()),
-    };
-};
 
-export default connect(null, mapDispatchToProps)(CreateSpending);
+
+export default CreateSpending;

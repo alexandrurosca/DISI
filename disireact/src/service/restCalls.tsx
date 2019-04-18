@@ -1,3 +1,6 @@
+import {AxiosPromise} from "axios";
+import axios from "axios";
+
 export function doLogin(username1: string, password1: string): Promise<any>{
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded')
@@ -44,8 +47,12 @@ export function createAccount(newAccount: ICreateAccountDtoUser): Promise<any>{
     })
 }
 
+export function doLogout(): AxiosPromise{
+    return axios.post("http://localhost:8000/logout");
+}
 
-export function createSpending(newSpending: ICreateSpendingDtoUser): Promise<any>{
+
+export function createSpending(newSpending: ISpendingDto): Promise<any>{
     console.log("order: " + newSpending);
     return fetch('http://localhost:8080/createSpending',
         {
