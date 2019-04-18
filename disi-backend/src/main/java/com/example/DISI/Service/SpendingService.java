@@ -71,9 +71,9 @@ public class SpendingService {
         return "";
     }
 
-    public List<SpendingDTO> getAllSpendings(Long userID){
-
-        List<Spending> spendingList = spendingRepository.findAllByBudgetUserUserID(userID);
+    public List<SpendingDTO> getAllSpendings(String username){
+        User user = userRepository.findByAuthorityUsername(username);
+        List<Spending> spendingList = spendingRepository.findAllByBudgetUserUserID(user.getUserID());
         List<SpendingDTO> spendingDTOList = new ArrayList<>();
         spendingList.forEach( spending -> {
             SpendingDTO  spendingDTO = new SpendingDTO();

@@ -67,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
        // createUser();
 
-        // asdasd
+
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/createAccount").permitAll()
                 .antMatchers("/logout").permitAll()
@@ -77,6 +77,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().formLogin().successHandler(successHandler)
                 .and()
                 .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and().formLogin().successHandler(successHandler);

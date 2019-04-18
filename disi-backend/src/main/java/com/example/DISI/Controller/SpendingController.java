@@ -38,8 +38,8 @@ public class SpendingController {
     @GetMapping("/listSpending")
     public ResponseEntity<List<SpendingDTO>> listAccount(){
 
-        Long userID= 0L;
-        List<SpendingDTO> spendingList = spendingService.getAllSpendings(userID);
+        String username =  SecurityContextHolder.getContext().getAuthentication().getName();
+        List<SpendingDTO> spendingList = spendingService.getAllSpendings(username);
         if(spendingList != null) {
             return new ResponseEntity(spendingList,HttpStatus.OK);
         }
