@@ -4,8 +4,8 @@ export enum Constants{
 
 
 export enum Reasons{
-    GROCERIES = "groceries",
-    SHOPPING = "shopping",
-    RENTS = "rents",
-    BEER = "beer",
+    GROCERIES = "GROCERIES",
+    SHOPPING = "SHOPPING",
+    RENTS = "RENTS",
+    BEER = "BEER",
 }

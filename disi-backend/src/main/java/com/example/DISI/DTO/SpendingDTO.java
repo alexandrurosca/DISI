@@ -1,6 +1,6 @@
 package com.example.DISI.DTO;
 
-import com.example.DISI.Service.Constants;
+import com.example.DISI.Entity.Reason;
 
 import java.time.LocalDate;
 
@@ -9,11 +9,29 @@ public class SpendingDTO {
 
     private double amount;
 
-    private Enum<Constants.Reason> reason;
+    private Reason reason;
 
-    private LocalDate makingDate;
+    private LocalDate date;
 
     private Long userID;
+
+
+    public SpendingDTO(double amount, Reason reason, LocalDate date, Long userID) {
+        this.amount = amount;
+        this.reason = reason;
+        this.date = date;
+        this.userID = userID;
+    }
+
+    public Reason getReason() {
+        return reason;
+    }
+
+
+
+    public void setReason(Reason reason) {
+        this.reason = reason;
+    }
 
     public double getAmount() {
         return amount;
@@ -23,20 +41,13 @@ public class SpendingDTO {
         this.amount = amount;
     }
 
-    public Enum getReason() {
-        return reason;
+
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setReason(Enum reason) {
-        this.reason = reason;
-    }
-
-    public LocalDate getMakingDate() {
-        return makingDate;
-    }
-
-    public void setMakingDate(LocalDate makingDate) {
-        this.makingDate = makingDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Long getUserID() {

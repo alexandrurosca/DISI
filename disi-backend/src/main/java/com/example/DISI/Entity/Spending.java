@@ -16,7 +16,7 @@ public class Spending {
     private double amount;
 
     @Column
-    private Enum<Constants.Reason> reason;
+    private Reason reason;
 
     @Column
     private LocalDate makingDate;
@@ -25,11 +25,19 @@ public class Spending {
     private Budget budget;
 
 
-    public long getSpendingID() {
+    public Long getSpendingID() {
         return spendingID;
     }
 
-    public void setSpendingID(long spendingID) {
+    public Reason getReason() {
+        return reason;
+    }
+
+    public void setReason(Reason reason) {
+        this.reason = reason;
+    }
+
+    public void setSpendingID(Long spendingID) {
         this.spendingID = spendingID;
     }
 
@@ -41,13 +49,6 @@ public class Spending {
         this.amount = amount;
     }
 
-    public Enum getReason() {
-        return reason;
-    }
-
-    public void setReason(Enum reason) {
-        this.reason = reason;
-    }
 
     public LocalDate getMakingDate() {
         return makingDate;
@@ -63,5 +64,16 @@ public class Spending {
 
     public void setBudget(Budget budget) {
         this.budget = budget;
+    }
+
+    @Override
+    public String toString() {
+        return "Spending{" +
+                "spendingID=" + spendingID +
+                ", amount=" + amount +
+                ", reason=" + reason +
+                ", makingDate=" + makingDate +
+                ", budget=" + budget +
+                '}';
     }
 }

@@ -7,11 +7,14 @@ import com.example.DISI.Entity.User;
 import com.example.DISI.Repository.BudgetRepository;
 import com.example.DISI.Repository.SpendingRepository;
 import com.example.DISI.Repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SpendingService {
+    Logger LOGGER = LoggerFactory.getLogger(SpendingService.class);
 
     @Autowired
     SpendingRepository spendingRepository;
@@ -24,10 +27,11 @@ public class SpendingService {
 
     public String createSpending(String username, SpendingDTO spendingDTO){
         User user = userRepository.findByAuthorityUsername(username);
+        spendingDTO.setUserID(user.getUserID());
         //TODO validation
         String error = validateSpending(spendingDTO);
 
-        if (error.equals("")) {
+        if (!error.equals("")) {
             return error;
         }
 
@@ -35,15 +39,18 @@ public class SpendingService {
 
 
         spending.setAmount(spendingDTO.getAmount());
-        spending.setReason(spendingDTO.getReason());
-        spending.setMakingDate(spendingDTO.getMakingDate());
+        spending.setReason(spending.getReason());
+        spending.setMakingDate(spendingDTO.getDate());
 
-        Budget budget = budgetRepository.findByUserUserID(user.getUserID());
+        Budget budget = budgetRepository.findByUserUserID(spendingDTO.getUserID());
 
         spending.setBudget(budget);
 
-        spendingRepository.save(spending);
+        LOGGER.info("before : " + spending.toString());
 
+
+        Spending spending1 = spendingRepository.save(spending);
+        LOGGER.info("after : " + spending1.toString());
         return error;
 
     }
@@ -58,7 +65,7 @@ public class SpendingService {
             return "Reason required ";
         }
 
-        if (spendingDTO.getMakingDate() == null) {
+        if (spendingDTO.getDate() == null) {
             return "Date required";
         }
 
