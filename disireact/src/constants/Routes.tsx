@@ -3,5 +3,5 @@ export const enum Routes {
     HOME_PAGE = "/client",
     LOGIN_PAGE = "/login",
     CREATE_SPENDING = "/createSpending",
-
+    LIST_SPENDING = "/listSpending"
 }
