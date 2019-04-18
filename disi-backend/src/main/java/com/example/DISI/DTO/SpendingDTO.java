@@ -1,37 +1,19 @@
-package com.example.DISI.Entity;
+package com.example.DISI.DTO;
+
 import com.example.DISI.Service.Constants;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 
-@Entity
-public class Spending {
+public class SpendingDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long spendingID;
-
-    @Column
     private double amount;
 
-    @Column
     private Enum<Constants.Reason> reason;
 
-    @Column
     private LocalDate makingDate;
 
-    @ManyToOne
-    private Budget budget;
-
-
-    public long getSpendingID() {
-        return spendingID;
-    }
-
-    public void setSpendingID(long spendingID) {
-        this.spendingID = spendingID;
-    }
+    private Long userID;
 
     public double getAmount() {
         return amount;
@@ -57,11 +39,11 @@ public class Spending {
         this.makingDate = makingDate;
     }
 
-    public Budget getBudget() {
-        return budget;
+    public Long getUserID() {
+        return userID;
     }
 
-    public void setBudget(Budget budget) {
-        this.budget = budget;
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 }
