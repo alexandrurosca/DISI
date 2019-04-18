@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Component} from "react";
-import "./CreateSpending.css";
 
 
 
@@ -29,8 +28,7 @@ class ListSpending extends Component<{}, IListSPendingState>{
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                    </tr>
+                    <tr/>
                     </tbody>
                 </table>
             </React.Fragment>
