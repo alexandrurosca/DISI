@@ -25,7 +25,6 @@ public class SpendingService {
     public String createSpending(String username, SpendingDTO spendingDTO){
         User user = userRepository.findByAuthorityUsername(username);
         //TODO validation
-        String error = "   ";
         String error = validateSpending(spendingDTO);
 
         if (error.equals("")) {
