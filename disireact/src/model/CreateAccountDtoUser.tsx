@@ -6,6 +6,6 @@ interface  ICreateAccountDtoUser {
     firstName: string,
     lastName: string,
     password: string,
-    budget: number
+    amount: string
 }
 

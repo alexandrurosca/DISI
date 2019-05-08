@@ -26,6 +26,9 @@ public class SpendingController {
     @CrossOrigin
     @PostMapping("/createSpending")
     public ResponseEntity<String> createAccount(@RequestBody SpendingDTO spendingDTO, HttpSession session){
+
+
+
         String username =  SecurityContextHolder.getContext().getAuthentication().getName();
         String response = spendingService.createSpending(username, spendingDTO);
         if(response.equals("")) {

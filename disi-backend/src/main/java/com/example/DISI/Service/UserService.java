@@ -7,6 +7,8 @@ import com.example.DISI.Entity.User;
 import com.example.DISI.Repository.AuthorityRepository;
 import com.example.DISI.Repository.BudgetRepository;
 import com.example.DISI.Repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ import java.time.temporal.ChronoUnit;
 
 @Service
 public class UserService {
-
+    Logger LOGGER = LoggerFactory.getLogger(UserService.class);
     @Autowired
     UserRepository userRepository;
 
@@ -37,7 +39,7 @@ public class UserService {
     }
 
     public String createAccount(UserDTO userDTO) {
-
+        LOGGER.info("create User Dto: " + userDTO.toString());
         String error = validateUser(userDTO);
 
         if(!error.equals("")){

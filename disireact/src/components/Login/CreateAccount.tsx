@@ -18,7 +18,7 @@ interface ICreateAccountState {
     firstName: string,
     lastName: string,
     password: string,
-    budget: number
+    budget: string
 }
 
 class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
@@ -30,7 +30,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
             lastName: "",
             password: "",
             username: "",
-            budget: 0,
+            budget: "",
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -45,7 +45,7 @@ class CreateAccount extends Component<ICreateAccountProps, ICreateAccountState>{
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             password: this.state.password,
-            budget: this.state.budget,
+            amount: this.state.budget,
             username: this.state.username
         } as ICreateAccountDtoUser;
 

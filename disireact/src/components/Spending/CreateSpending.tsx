@@ -35,11 +35,9 @@ class CreateSpending extends Component<{},ICreateSPendingState>{
             // userID: localStorage.getItem(Constants)
         } as ISpendingDto;
        createSpending(newSpending).then(response=>{
-            if(response !== undefined && response !== null){
-                const currentSpending = response as ISpendingDto;
-                console.log(JSON.stringify(currentSpending));
-            }
-        })
+           alert("Success to add spending!");
+
+       })
     }
 
     public handleChange (event: any){

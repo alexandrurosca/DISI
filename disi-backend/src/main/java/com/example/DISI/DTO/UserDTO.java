@@ -16,6 +16,9 @@ public class UserDTO {
 
     private double amount;
 
+    public UserDTO() {
+    }
+
     public UserDTO(Long userID, String username, String password, String email, String firstName, String lastName, double amount) {
         this.userID = userID;
         this.username = username;
@@ -24,10 +27,6 @@ public class UserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.amount = amount;
-    }
-
-    public UserDTO() {
-
     }
 
     public Long getUserID() {
@@ -84,5 +83,18 @@ public class UserDTO {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "userID=" + userID +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", amount=" + amount +
+                '}';
     }
 }

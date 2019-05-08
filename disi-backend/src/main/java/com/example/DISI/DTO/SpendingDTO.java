@@ -15,6 +15,10 @@ public class SpendingDTO {
 
     private Long userID;
 
+    private Long spendingId;
+
+    public SpendingDTO() {
+    }
 
     public SpendingDTO(double amount, Reason reason, LocalDate date, Long userID) {
         this.amount = amount;
@@ -27,7 +31,13 @@ public class SpendingDTO {
         return reason;
     }
 
+    public Long getSpendingId() {
+        return spendingId;
+    }
 
+    public void setSpendingId(Long spendingId) {
+        this.spendingId = spendingId;
+    }
 
     public void setReason(Reason reason) {
         this.reason = reason;

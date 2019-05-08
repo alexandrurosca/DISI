@@ -29,6 +29,7 @@ public class SpendingService {
     UserRepository userRepository;
 
     public String createSpending(String username, SpendingDTO spendingDTO){
+        LOGGER.info("before dto: " + spendingDTO.toString());
         User user = userRepository.findByAuthorityUsername(username);
         spendingDTO.setUserID(user.getUserID());
         //TODO validation
@@ -41,7 +42,7 @@ public class SpendingService {
         Spending spending = new Spending();
 
         spending.setAmount(spendingDTO.getAmount());
-        spending.setReason(spending.getReason());
+        spending.setReason(spendingDTO.getReason());
         spending.setMakingDate(spendingDTO.getDate());
 
         Budget budget = budgetRepository.findByUserUserID(spendingDTO.getUserID());
@@ -85,9 +86,9 @@ public class SpendingService {
         spendingList.forEach( spending -> {
             SpendingDTO  spendingDTO = new SpendingDTO();
             spendingDTO.setAmount(spending.getAmount());
-            spendingDTO.setMakingDate(spending.getMakingDate());
+            spendingDTO.setDate(spending.getMakingDate());
             spendingDTO.setReason(spending.getReason());
-            spendingDTO.setSpendingID(spending.getSpendingID());
+            spendingDTO.setSpendingId(spending.getSpendingID());
             spendingDTOList.add(spendingDTO);
         });
         return spendingDTOList;
