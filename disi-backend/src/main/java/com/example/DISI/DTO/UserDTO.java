@@ -1,5 +1,9 @@
 package com.example.DISI.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
+
 public class UserDTO {
 
     private Long userID;
@@ -16,6 +20,13 @@ public class UserDTO {
 
     private double amount;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate endDate;
+
+    private boolean budgetExpired;
+
     public UserDTO() {
     }
 
@@ -27,6 +38,30 @@ public class UserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.amount = amount;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public boolean isBudgetExpired() {
+        return budgetExpired;
+    }
+
+    public void setBudgetExpired(boolean budgetExpired) {
+        this.budgetExpired = budgetExpired;
     }
 
     public Long getUserID() {

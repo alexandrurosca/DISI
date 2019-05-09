@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 public class BudgetService {
@@ -44,5 +45,15 @@ public class BudgetService {
 
         return budget;
 
+    }
+
+    public Budget getBudgetForUser(long userId){
+        List<Budget> budgets = budgetRepository.findByUserUserID(userId);
+
+        Budget currentBudget =  budgets.stream().filter(budget ->
+                LocalDate.now().isAfter(budget.getStartDate()) && LocalDate.now().isBefore(budget.getEndDate())
+        ).findFirst().orElse(null);
+
+        return currentBudget;
     }
 }

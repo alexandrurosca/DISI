@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 
 @Service
@@ -30,6 +31,9 @@ public class UserService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    BudgetService budgetService;
 
     public User findUserByUsername(String currentUser) {
 
@@ -114,6 +118,8 @@ public class UserService {
     public UserDTO createDTO(String currentUser) {
 
         User user = findUserByUsername(currentUser);
+
+        Budget currentBudget =  budgetService.getBudgetForUser(user.getUserID());
         UserDTO userDTO = new UserDTO();
 
         userDTO.setUsername(user.getAuthority().getUsername());
@@ -122,7 +128,16 @@ public class UserService {
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getPassword());
         userDTO.setUserID(user.getUserID());
-        userDTO.setAmount(budgetRepository.findByUserUserID(user.getUserID()).getAmount());
+
+        if(currentBudget != null){
+            userDTO.setAmount(currentBudget.getAmount());
+            userDTO.setStartDate(currentBudget.getStartDate());
+            userDTO.setEndDate(currentBudget.getEndDate());
+            userDTO.setBudgetExpired(false);
+        }else{
+            userDTO.setBudgetExpired(true);
+        }
+
 
         return userDTO;
     }

@@ -2,6 +2,7 @@ package com.example.DISI.Security;
 
 import com.example.DISI.DTO.UserDTO;
 import com.example.DISI.Entity.User;
+import com.example.DISI.Repository.BudgetRepository;
 import com.example.DISI.Service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -28,6 +29,7 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 
     @Autowired
     UserService userService;
+
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

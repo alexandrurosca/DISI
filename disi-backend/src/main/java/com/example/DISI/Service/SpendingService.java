@@ -27,6 +27,9 @@ public class SpendingService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    BudgetService budgetService;
+
 
     public String createSpending(String username, SpendingDTO spendingDTO){
         LOGGER.info("before dto: " + spendingDTO.toString());
@@ -45,7 +48,7 @@ public class SpendingService {
         spending.setReason(spendingDTO.getReason());
         spending.setMakingDate(spendingDTO.getDate());
 
-        Budget budget = budgetRepository.findByUserUserID(spendingDTO.getUserID());
+        Budget budget =budgetService.getBudgetForUser(user.getUserID());
 
         spending.setBudget(budget);
 
