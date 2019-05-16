@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BudgetRepository extends JpaRepository<Budget,Long> {
     List<Budget> findByUserUserID(long userID);
+
+    List<Budget> findByUserAuthorityUsername(String username);
 }

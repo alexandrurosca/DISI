@@ -61,4 +61,16 @@ public class BudgetService {
 
         return currentBudget;
     }
+
+    public BudgetDTO getBudgetForUserByUsername(String username){
+        List<Budget> budgets = budgetRepository.findByUserAuthorityUsername(username);
+
+        Budget currentBudget =  budgets.stream().filter(budget ->
+                LocalDate.now().isAfter(budget.getStartDate()) && LocalDate.now().isBefore(budget.getEndDate())
+        ).findFirst().orElse(null);
+
+        BudgetDTO budgetDTO = new BudgetDTO();
+        budgetDTO.setAmount(currentBudget.getAmount());
+        return budgetDTO;
+    }
 }

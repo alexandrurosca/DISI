@@ -134,7 +134,16 @@ public class SpendingService {
 
     public void deleteSpending(long spendingID){
 
-        spendingRepository.deleteById(spendingID);
+        Optional<Spending> spending = spendingRepository.findById(spendingID);
+
+        if(spending.isPresent()){
+
+            Budget budget = spending.get().getBudget();
+            budget.setAmount(budget.getAmount() + spending.get().getAmount());
+            spendingRepository.deleteById(spendingID);
+        }
+
+
 
 
     }

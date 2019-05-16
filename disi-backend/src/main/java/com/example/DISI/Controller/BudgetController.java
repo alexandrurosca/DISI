@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -20,8 +17,8 @@ public class BudgetController {
     BudgetService budgetService;
 
     @CrossOrigin
-    @PostMapping("/update")
-    public ResponseEntity<Budget> updateBudget(@RequestBody double amount){
+    @PostMapping("/budget/update")
+    public ResponseEntity<BudgetDTO> updateBudget(@RequestBody double amount){
 
         String username =  SecurityContextHolder.getContext().getAuthentication().getName();
         BudgetDTO response = budgetService.updateBudget(amount,username);
@@ -29,7 +26,20 @@ public class BudgetController {
         if(response != null ) {
             return new ResponseEntity(response,HttpStatus.OK);
         }
-        else return  new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        else return  new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @CrossOrigin
+    @GetMapping("/budget")
+    public ResponseEntity<BudgetDTO> getBudget(){
+
+        String username =  SecurityContextHolder.getContext().getAuthentication().getName();
+        BudgetDTO response = budgetService.getBudgetForUserByUsername(username);
+
+        if(response != null ) {
+            return new ResponseEntity(response,HttpStatus.OK);
+        }
+        else return  new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 }
