@@ -20,10 +20,8 @@ public class UserDTO {
 
     private double amount;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate startDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
 
     private boolean budgetExpired;
 
@@ -40,19 +38,19 @@ public class UserDTO {
         this.amount = amount;
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

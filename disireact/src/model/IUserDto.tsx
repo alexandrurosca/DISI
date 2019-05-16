@@ -7,7 +7,7 @@ interface IUserDto{
     firstName: string,
     lastName: string,
     amount: number,
-    startDate?: Date,
-    endDate?: Date,
-    budgetExpired?: boolean
+    startDate: string,
+    endDate: string,
+    budgetExpired: boolean
 }

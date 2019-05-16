@@ -2,5 +2,6 @@ interface  ISpendingDto {
     reason: string,
     amount: string,
     date: string,
-    id: number
+    spendingId: number,
+    userId: number
 }

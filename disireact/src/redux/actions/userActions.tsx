@@ -8,6 +8,7 @@ import {Routes} from "../../constants/Routes";
 export const UserActions = {
     setLoggedUserAction: (loginInfo: IUserDto) => createAction(LoginActionTypes.SET_LOGGED_USER_ACTION, loginInfo),
     resetLoggedUserAction: () => createAction(LoginActionTypes.RESET_LOGGED_USER_ACTION),
+    updateUserBudget: (budget: number) => createAction(LoginActionTypes.UPDATE_BUDGET, budget),
 };
 export type UserActions = ActionTypesUnion<typeof UserActions>
 
@@ -22,6 +23,12 @@ export function setUserAction(user: IUserDto): any  {
     return (dispatch: any) => {
         dispatch(UserActions.setLoggedUserAction(user));
         dispatch(push(Routes.HOME_PAGE));
+    }
+}
+
+export function updateUserBudget(budget: number): any  {
+    return (dispatch: any) => {
+        dispatch(UserActions.updateUserBudget(budget));
     }
 }
 

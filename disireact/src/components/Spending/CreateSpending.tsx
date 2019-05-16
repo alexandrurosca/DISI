@@ -4,6 +4,7 @@ import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import "./CreateSpending.css";
 import {createSpending} from "../../service/restCalls";
 import {Reasons} from "../../constants/Constants";
+import {connect} from "react-redux";
 
 
 interface ICreateSPendingState {
@@ -12,8 +13,12 @@ interface ICreateSPendingState {
     date: string,
 }
 
+interface ICreateSpendingProps {
+    userLogged: IUserDto
+}
 
-class CreateSpending extends Component<{},ICreateSPendingState>{
+
+class CreateSpending extends Component<ICreateSpendingProps,ICreateSPendingState>{
     constructor(props: any) {
         super(props);
         this.state = {
@@ -86,12 +91,13 @@ class CreateSpending extends Component<{},ICreateSPendingState>{
                             type="text"
                         />
                     </FormGroup>
-                    <FormGroup controlId="date" bsSize="large">
+                    <FormGroup controlId="date" bsSize="large" >
                         <ControlLabel>Date</ControlLabel>
                         <FormControl
                             value={this.state.date}
                             onChange={this.handleChange}
                             type="date"
+                            min={this.props.userLogged.startDate}
                         />
                     </FormGroup>
                     <Button
@@ -108,6 +114,12 @@ class CreateSpending extends Component<{},ICreateSPendingState>{
 
 }
 
+const mapStateToProps = (state: any) => {
+    return {
+        userLogged: state.user.userDetails
+    };
+};
 
 
-export default CreateSpending;
+
+export default connect(mapStateToProps, {})(CreateSpending);

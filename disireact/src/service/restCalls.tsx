@@ -48,8 +48,16 @@ export function createAccount(newAccount: ICreateAccountDtoUser): Promise<any>{
 }
 
 export function doLogout(): AxiosPromise{
-    return axios.post("http://localhost:8080/logout");
+    return axios.post("http://localhost:8080/logout", {withCredentials: true});
 }
+export function getBudget(): AxiosPromise{
+    return axios.get("http://localhost:8080/budget",  {withCredentials: true});
+}
+
+export function deleteSpending(id: number): AxiosPromise{
+    return axios.delete("http://localhost:8080/delete/spending/" + id,  {withCredentials: true});
+}
+
 
 
 export function createSpending(newSpending: ISpendingDto): Promise<any>{

@@ -131,8 +131,8 @@ public class UserService {
 
         if(currentBudget != null){
             userDTO.setAmount(currentBudget.getAmount());
-            userDTO.setStartDate(currentBudget.getStartDate());
-            userDTO.setEndDate(currentBudget.getEndDate());
+            userDTO.setStartDate(currentBudget.getStartDate().toString());
+            userDTO.setEndDate(currentBudget.getEndDate().toString());
             userDTO.setBudgetExpired(false);
         }else{
             userDTO.setBudgetExpired(true);

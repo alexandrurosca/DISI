@@ -15,7 +15,10 @@ const initialState: IUserState = {
         email: "",
         firstName: "",
         lastName: "",
-        amount: 0
+        amount: 0,
+        startDate: "",
+        endDate: "",
+        budgetExpired: false
     }
 };
 
@@ -31,6 +34,19 @@ export default function (state:IUserState = initialState, action: UserActions):I
         case LoginActionTypes.RESET_LOGGED_USER_ACTION:
             localStorage.setItem(Constants.USER_LOGGED, "");
             return initialState;
+
+        case LoginActionTypes.UPDATE_BUDGET:
+            const newBudget = action.payload;
+
+            const oldUser=JSON.parse(JSON.stringify(state.userDetails))
+
+            oldUser.amount = newBudget;
+            localStorage.setItem(Constants.USER_LOGGED, JSON.stringify(oldUser));
+            return{
+                isLoggedIn: true,
+                userDetails: oldUser,
+            };
+
         default:
             return state;
     }
