@@ -141,11 +141,9 @@ public class SpendingService {
 
             Budget budget = spending.get().getBudget();
             budget.setAmount(budget.getAmount() + spending.get().getAmount());
+            budgetRepository.save(budget);
             spendingRepository.deleteById(spendingID);
         }
-
-
-
 
     }
 
