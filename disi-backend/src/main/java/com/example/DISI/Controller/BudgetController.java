@@ -1,5 +1,6 @@
 package com.example.DISI.Controller;
 
+import com.example.DISI.DTO.BudgetDTO;
 import com.example.DISI.Entity.Budget;
 import com.example.DISI.Service.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BudgetController {
     public ResponseEntity<Budget> updateBudget(@RequestBody double amount){
 
         String username =  SecurityContextHolder.getContext().getAuthentication().getName();
-        Budget response = budgetService.updateBudget(amount,username);
+        BudgetDTO response = budgetService.updateBudget(amount,username);
 
         if(response != null ) {
             return new ResponseEntity(response,HttpStatus.OK);

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SpendingService {
@@ -61,6 +62,39 @@ public class SpendingService {
 
     }
 
+    public Spending updateSpending(SpendingDTO spendingDTO){
+        LOGGER.info("before dto update spending : " + spendingDTO.toString());
+
+        Optional<Spending> spendingOptional = spendingRepository.findById(spendingDTO.getSpendingId());
+        Spending spending;
+        if(spendingOptional.isPresent()){
+            spending = spendingOptional.get();
+        }else{
+            return null;
+        }
+
+
+        spending.setAmount(spendingDTO.getAmount());
+        spending.setReason(spendingDTO.getReason());
+        spending.setMakingDate(spendingDTO.getDate());
+
+        Optional<Budget> budgetOptional =budgetRepository.findById(spending.getBudget().getBudgetID());
+        Budget budget;
+        if(budgetOptional.isPresent()){
+            budget = budgetOptional.get();
+        }else{
+            return null;
+        }
+
+        spending.setBudget(budget);
+
+        Spending spending1 = spendingRepository.save(spending);
+
+        LOGGER.info("after : " + spending1.toString());
+        return spending1;
+
+    }
+
     private String validateSpending(SpendingDTO spendingDTO) {
 
         if (spendingDTO.getAmount() < 0) {
@@ -98,7 +132,12 @@ public class SpendingService {
     }
 
 
+    public void deleteSpending(long spendingID){
 
+        spendingRepository.deleteById(spendingID);
+
+
+    }
 
 
 

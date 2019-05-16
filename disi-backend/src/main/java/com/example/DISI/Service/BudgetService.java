@@ -1,5 +1,6 @@
 package com.example.DISI.Service;
 
+import com.example.DISI.DTO.BudgetDTO;
 import com.example.DISI.Entity.Budget;
 import com.example.DISI.Entity.User;
 import com.example.DISI.Repository.BudgetRepository;
@@ -24,11 +25,12 @@ public class BudgetService {
     @Autowired
     UserRepository userRepository;
 
-    public Budget updateBudget(double amount, String username){
+    public BudgetDTO updateBudget(double amount, String username){
 
         LOGGER.info("Update budget...");
 
         Budget budget = new Budget();
+        BudgetDTO budgetDTO = new BudgetDTO();
         User user = userRepository.findByAuthorityUsername(username);
 
 
@@ -43,7 +45,10 @@ public class BudgetService {
 
         budget = budgetRepository.save(budget);
 
-        return budget;
+        if(budget != null){
+            budgetDTO.setAmount(budget.getAmount());
+        }
+        return budgetDTO;
 
     }
 
