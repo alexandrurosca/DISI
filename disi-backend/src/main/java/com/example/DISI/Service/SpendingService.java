@@ -52,7 +52,7 @@ public class SpendingService {
         spending.setMakingDate(spendingDTO.getDate());
 
         Budget budget =budgetService.getBudgetForUser(user.getUserID());
-        budgetService.updateBudgetWithSpendingAmount(spending.getAmount(),budget);
+        budgetService.updateBudgetWithSpendingAmountAdd(spending.getAmount(),budget);
 
         spending.setBudget(budget);
 
@@ -77,18 +77,19 @@ public class SpendingService {
         }
 
 
-        spending.setAmount(spendingDTO.getAmount());
-        spending.setReason(spendingDTO.getReason());
-        spending.setMakingDate(spendingDTO.getDate());
 
         Optional<Budget> budgetOptional =budgetRepository.findById(spending.getBudget().getBudgetID());
         Budget budget;
         if(budgetOptional.isPresent()){
             budget = budgetOptional.get();
+           budgetService.updateBudgetWithSpendingAmountModify(spending.getAmount(),spendingDTO.getAmount(),budget);
         }else{
             return null;
         }
 
+        spending.setAmount(spendingDTO.getAmount());
+        spending.setReason(spendingDTO.getReason());
+        spending.setMakingDate(spendingDTO.getDate());
         spending.setBudget(budget);
 
         Spending spending1 = spendingRepository.save(spending);
