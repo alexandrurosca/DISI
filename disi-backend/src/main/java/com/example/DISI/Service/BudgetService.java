@@ -74,9 +74,15 @@ public class BudgetService {
         return budgetDTO;
     }
 
-    public void updateBudgetWithSpendingAmount(double amount, Budget budget){
+    public void updateBudgetWithSpendingAmountAdd(double amount, Budget budget){
 
         budget.setAmount(budget.getAmount()  - amount);
+        budgetRepository.save(budget);
+    }
+
+    public void updateBudgetWithSpendingAmountModify(double amountToDelete, double amountToAdd,Budget budget){
+
+        budget.setAmount(budget.getAmount()  - amountToDelete + amountToAdd);
         budgetRepository.save(budget);
     }
 

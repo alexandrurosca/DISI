@@ -1,5 +1,6 @@
 package com.example.DISI.Service;
 
+import com.example.DISI.DTO.GraphData;
 import com.example.DISI.DTO.SpendingDTO;
 import com.example.DISI.Entity.Budget;
 import com.example.DISI.Entity.Spending;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +52,7 @@ public class SpendingService {
         spending.setMakingDate(spendingDTO.getDate());
 
         Budget budget =budgetService.getBudgetForUser(user.getUserID());
-        budgetService.updateBudgetWithSpendingAmount(spending.getAmount(),budget);
+        budgetService.updateBudgetWithSpendingAmountAdd(spending.getAmount(),budget);
 
         spending.setBudget(budget);
 
@@ -75,18 +77,19 @@ public class SpendingService {
         }
 
 
-        spending.setAmount(spendingDTO.getAmount());
-        spending.setReason(spendingDTO.getReason());
-        spending.setMakingDate(spendingDTO.getDate());
 
         Optional<Budget> budgetOptional =budgetRepository.findById(spending.getBudget().getBudgetID());
         Budget budget;
         if(budgetOptional.isPresent()){
             budget = budgetOptional.get();
+           budgetService.updateBudgetWithSpendingAmountModify(spending.getAmount(),spendingDTO.getAmount(),budget);
         }else{
             return null;
         }
 
+        spending.setAmount(spendingDTO.getAmount());
+        spending.setReason(spendingDTO.getReason());
+        spending.setMakingDate(spendingDTO.getDate());
         spending.setBudget(budget);
 
         Spending spending1 = spendingRepository.save(spending);
@@ -148,5 +151,9 @@ public class SpendingService {
     }
 
 
+    public List<GraphData> getDataForGraph(String startDate, String endDate) {
 
+         return  spendingRepository.findByMakingDateBetween(LocalDate.parse(startDate),LocalDate.parse(endDate));
+
+    }
 }
