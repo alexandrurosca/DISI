@@ -1,7 +1,6 @@
 package com.example.DISI.Controller;
 
 import com.example.DISI.DTO.BudgetDTO;
-import com.example.DISI.Entity.Budget;
 import com.example.DISI.Service.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

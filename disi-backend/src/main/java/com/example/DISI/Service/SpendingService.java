@@ -50,6 +50,7 @@ public class SpendingService {
         spending.setMakingDate(spendingDTO.getDate());
 
         Budget budget =budgetService.getBudgetForUser(user.getUserID());
+        budgetService.updateBudgetWithSpendingAmount(spending.getAmount(),budget);
 
         spending.setBudget(budget);
 
