@@ -1,5 +1,6 @@
 package com.example.DISI.Service;
 
+import com.example.DISI.DTO.GraphData;
 import com.example.DISI.DTO.SpendingDTO;
 import com.example.DISI.Entity.Budget;
 import com.example.DISI.Entity.Spending;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -148,5 +150,9 @@ public class SpendingService {
     }
 
 
+    public List<GraphData> getDataForGraph(String startDate, String endDate) {
 
+         return  spendingRepository.findByMakingDateBetween(LocalDate.parse(startDate),LocalDate.parse(endDate));
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.DISI.Controller;
 
+import com.example.DISI.DTO.GraphData;
 import com.example.DISI.DTO.SpendingDTO;
 import com.example.DISI.Entity.Spending;
 import com.example.DISI.Service.SpendingService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -57,6 +59,20 @@ public class SpendingController {
     public ResponseEntity updateSpending(@RequestBody SpendingDTO spendingDTO) {
 
         Spending response = spendingService.updateSpending(spendingDTO);
+
+        if (response != null) {
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+    @CrossOrigin
+    @GetMapping("/graph")
+    public ResponseEntity<List<GraphData>> getDataForGraph(@RequestParam(name = "startDate") String startDate, @RequestParam(name = "endDate")  String endDate) {
+
+        List<GraphData> response = spendingService.getDataForGraph(startDate, endDate);
 
         if (response != null) {
             return new ResponseEntity(response, HttpStatus.OK);
