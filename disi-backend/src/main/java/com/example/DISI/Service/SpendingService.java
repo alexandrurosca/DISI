@@ -68,34 +68,26 @@ public class SpendingService {
     public Spending updateSpending(SpendingDTO spendingDTO){
         LOGGER.info("before dto update spending : " + spendingDTO.toString());
 
-        Optional<Spending> spendingOptional = spendingRepository.findById(spendingDTO.getSpendingId());
-        Spending spending;
-        if(spendingOptional.isPresent()){
-            spending = spendingOptional.get();
-        }else{
-            return null;
+        Spending spending = spendingRepository.findById(spendingDTO.getSpendingId()).orElse(null);
+        if(spending != null){
+            Budget budget = budgetRepository.findById(spending.getBudget().getBudgetID()).orElse(null);
+            if(budget != null){
+                budgetService.updateBudgetWithSpendingAmountModify(spendingDTO.getAmount(),spending.getAmount(),budget);
+                spending.setAmount(spendingDTO.getAmount());
+                spending.setReason(spendingDTO.getReason());
+                spending.setMakingDate(spendingDTO.getDate());
+                spending.setBudget(budget);
+
+                Spending spending1 = spendingRepository.save(spending);
+
+                LOGGER.info("after : " + spending1.toString());
+                return spending1;
+            }
         }
 
+        return null;
 
 
-        Optional<Budget> budgetOptional =budgetRepository.findById(spending.getBudget().getBudgetID());
-        Budget budget;
-        if(budgetOptional.isPresent()){
-            budget = budgetOptional.get();
-           budgetService.updateBudgetWithSpendingAmountModify(spending.getAmount(),spendingDTO.getAmount(),budget);
-        }else{
-            return null;
-        }
-
-        spending.setAmount(spendingDTO.getAmount());
-        spending.setReason(spendingDTO.getReason());
-        spending.setMakingDate(spendingDTO.getDate());
-        spending.setBudget(budget);
-
-        Spending spending1 = spendingRepository.save(spending);
-
-        LOGGER.info("after : " + spending1.toString());
-        return spending1;
 
     }
 
@@ -136,6 +128,12 @@ public class SpendingService {
     }
 
 
+    public SpendingDTO getSpendingById(Long id, String username){
+        List<SpendingDTO> spendingDTOS = getAllSpendings(username);
+        return spendingDTOS.stream().filter(item->item.getSpendingId().equals(id)).findFirst().orElse(null);
+    }
+
+
     public void deleteSpending(long spendingID){
 
         Optional<Spending> spending = spendingRepository.findById(spendingID);
@@ -156,4 +154,5 @@ public class SpendingService {
          return  spendingRepository.findByMakingDateBetween(LocalDate.parse(startDate),LocalDate.parse(endDate));
 
     }
+
 }

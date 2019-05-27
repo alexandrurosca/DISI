@@ -67,4 +67,15 @@ public class SpendingDTO {
     public void setUserID(Long userID) {
         this.userID = userID;
     }
+
+    @Override
+    public String toString() {
+        return "SpendingDTO{" +
+                "amount=" + amount +
+                ", reason=" + reason +
+                ", date=" + date +
+                ", userID=" + userID +
+                ", spendingId=" + spendingId +
+                '}';
+    }
 }

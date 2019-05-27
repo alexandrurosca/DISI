@@ -2,7 +2,8 @@ import * as React from 'react';
 import {getBudget, getSpendings} from "../../service/restCalls";
 import ListSpending from "../ListSpending/ListSpending";
 import {connect} from "react-redux";
-import {updateUserBudget} from "../../redux/actions/userActions";
+import {setUserAction, updateUserBudget} from "../../redux/actions/userActions";
+import {Constants} from "../../constants/Constants";
 
 
 interface InterfaceState {
@@ -13,6 +14,7 @@ interface InterfaceState {
 interface InterfaceProps {
     userLogged: IUserDto
     updateBudgetUser: any
+    setUser: any
 }
 
 
@@ -25,31 +27,21 @@ class HomePage extends React.Component<InterfaceProps,InterfaceState>{
             spendings: [],
             userLocalStorage: null
         }
+        this.update = this.update.bind(this);
 
-        this.updateHome = this.updateHome.bind(this);
     }
 
-    public updateHome(): void{
-        this.update();
+    public componentDidMount(){
+        const user = localStorage.getItem(Constants.USER_LOGGED);
+        if(user !== null && user !== undefined){
+            console.log("asdasdasdasd: " + user);
+            this.props.setUser(JSON.parse(user) as IUserDto);
+        }
     }
-
 
 
     public componentWillMount(){
-
        this.update();
-       //  getBudget().then(resp=>{
-       //      if(resp.status === 200){
-       //          console.log("new budget: " + resp.data.amount);
-       //          this.props.updateBudgetUser(resp.data.amount);
-       //      }
-       //  });
-       //
-       //  getSpendings().then(resp=>{
-       //      this.setState({
-       //          spendings: resp as ISpendingDto[]
-       //      })
-       //  })
     }
 
     public render(){
@@ -72,7 +64,7 @@ class HomePage extends React.Component<InterfaceProps,InterfaceState>{
                     </tbody>
                 </table>
                 <h3>My Spendings</h3>
-                <ListSpending spendings={this.state.spendings} updateHome={()=>this.updateHome}/>
+                <ListSpending spendings={this.state.spendings} updateHome={this.update}/>
             </React.Fragment>
         )
     }
@@ -88,7 +80,9 @@ class HomePage extends React.Component<InterfaceProps,InterfaceState>{
         });
 
         getSpendings().then(resp=>{
-            const newSpendings = resp as ISpendingDto[]
+            const newSpendings = resp as ISpendingDto[];
+            console.log("new: " + newSpendings.length);
+            console.log("old: " +this.state.spendings.length);
             if(newSpendings.length !== this.state.spendings.length) {
                 this.setState({
                     spendings: resp as ISpendingDto[]
@@ -96,7 +90,6 @@ class HomePage extends React.Component<InterfaceProps,InterfaceState>{
             }
         })
 
-        // this.render();
     }
 }
 
@@ -111,7 +104,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         updateBudgetUser: (budget: number) => dispatch(updateUserBudget(budget)),
-        // logout: () => dispatch(doLogoutAction()),
+        setUser: (user: IUserDto) => dispatch(setUserAction(user)),
     };
 };
 

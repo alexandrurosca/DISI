@@ -53,10 +53,22 @@ export function doLogout(): AxiosPromise{
 export function getBudget(): AxiosPromise{
     return axios.get("http://localhost:8080/budget",  {withCredentials: true});
 }
+export function getOrderById(id: any): AxiosPromise{
+    return axios.get("http://localhost:8080/listSpending/"+id,  {withCredentials: true});
+}
 
 export function deleteSpending(id: number): AxiosPromise{
     return axios.delete("http://localhost:8080/delete/spending/" + id,  {withCredentials: true});
 }
+
+export function addNewBudget(budget: any): AxiosPromise{
+    return axios.post("http://localhost:8080/budget/update", budget, {withCredentials: true});
+}
+
+export function editSpending(budget: any): AxiosPromise{
+    return axios.post("http://localhost:8080/update/spending", budget, {withCredentials: true});
+}
+
 
 
 

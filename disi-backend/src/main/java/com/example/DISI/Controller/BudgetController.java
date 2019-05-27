@@ -1,6 +1,7 @@
 package com.example.DISI.Controller;
 
 import com.example.DISI.DTO.BudgetDTO;
+import com.example.DISI.Entity.Budget;
 import com.example.DISI.Service.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,10 @@ public class BudgetController {
 
     @CrossOrigin
     @PostMapping("/budget/update")
-    public ResponseEntity<BudgetDTO> updateBudget(@RequestBody double amount){
+    public ResponseEntity<BudgetDTO> updateBudget(@RequestBody BudgetDTO budgetDTO){
 
         String username =  SecurityContextHolder.getContext().getAuthentication().getName();
-        BudgetDTO response = budgetService.updateBudget(amount,username);
+        BudgetDTO response = budgetService.updateBudget(budgetDTO.getAmount(),username);
 
         if(response != null ) {
             return new ResponseEntity(response,HttpStatus.OK);

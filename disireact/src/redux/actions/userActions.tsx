@@ -20,9 +20,13 @@ export function setLoggedUser(user: IUserDto) {
 }
 
 export function setUserAction(user: IUserDto): any  {
+    console.log("setUser called")
     return (dispatch: any) => {
         dispatch(UserActions.setLoggedUserAction(user));
+        // window. = (Routes.HOME_PAGE);
+        // window.location.href = Routes.HOME_PAGE;
         dispatch(push(Routes.HOME_PAGE));
+        // window.location.reload();
     }
 }
 

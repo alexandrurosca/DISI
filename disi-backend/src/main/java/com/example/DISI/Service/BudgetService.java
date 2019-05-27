@@ -70,7 +70,9 @@ public class BudgetService {
         ).findFirst().orElse(null);
 
         BudgetDTO budgetDTO = new BudgetDTO();
-        budgetDTO.setAmount(currentBudget.getAmount());
+        if(currentBudget != null) {
+            budgetDTO.setAmount(currentBudget.getAmount());
+        }
         return budgetDTO;
     }
 

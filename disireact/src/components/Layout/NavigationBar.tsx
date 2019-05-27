@@ -5,8 +5,14 @@ import * as NavbarCollapse from "react-bootstrap/lib/NavbarCollapse";
 import {Constants} from "../../constants/Constants";
 import {Routes} from "../../constants/Routes";
 import {doLogout} from "../../service/restCalls";
+import {connect} from "react-redux";
 
-class NavigationBar extends Component{
+interface INavigationProps {
+    userLogged: IUserDto
+}
+
+
+class NavigationBar extends Component<INavigationProps>{
 
     constructor(props: any){
         super(props);
@@ -32,9 +38,17 @@ class NavigationBar extends Component{
                     <NavItem>
                         <NavLink href={Routes.HOME_PAGE} disabled={!isUserLogged}>Home</NavLink>
                     </NavItem>
+
                     <NavItem>
-                        <NavLink href={Routes.CREATE_SPENDING} disabled={!isUserLogged}>Create Spending</NavLink>
+                        <NavLink href={Routes.CREATE_SPENDING} disabled={!isUserLogged || this.props.userLogged.budgetExpired}>Create Spending</NavLink>
                     </NavItem>
+
+                    {
+                        this.props.userLogged.budgetExpired &&
+                        <NavItem>
+                            <NavLink href={Routes.ADD_NEW_BUDGET} disabled={!isUserLogged}>Update budget</NavLink>
+                        </NavItem>
+                    }
 
                     {/*<NavItem>*/}
                         {/*<NavLink href={Routes.MY_ACCOUNT} disabled={!isUserLogged}>{getMessageResource("nav.account")}</NavLink>*/}
@@ -61,4 +75,9 @@ class NavigationBar extends Component{
     }
 }
 
-export default NavigationBar;
+const mapStateToProps = (state: any) => {
+    return {
+        userLogged: state.user.userDetails
+    };
+};
+export default connect(mapStateToProps, {})(NavigationBar);

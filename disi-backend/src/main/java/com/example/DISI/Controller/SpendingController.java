@@ -5,6 +5,7 @@ import com.example.DISI.DTO.SpendingDTO;
 import com.example.DISI.Entity.Spending;
 import com.example.DISI.Service.SpendingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,6 +43,17 @@ public class SpendingController {
         if (spendingList != null) {
             return new ResponseEntity(spendingList, HttpStatus.OK);
         } else return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @CrossOrigin
+    @GetMapping("/listSpending/{id}")
+    public ResponseEntity<SpendingDTO> getSpendingById(@PathVariable("id") long id) {
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        SpendingDTO spending = spendingService.getSpendingById(id,username);
+        if (spending != null) {
+            return new ResponseEntity(spending, HttpStatus.OK);
+        } else return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @CrossOrigin
