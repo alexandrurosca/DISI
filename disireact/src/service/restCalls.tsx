@@ -69,6 +69,14 @@ export function editSpending(budget: any): AxiosPromise{
     return axios.post("http://localhost:8080/update/spending", budget, {withCredentials: true});
 }
 
+export function getGraphData(startDate: any, endDate: any): AxiosPromise{
+    const params1 = new URLSearchParams();
+    params1.append('startDate', startDate);
+    params1.append('endDate', endDate);
+
+    return axios.get("http://localhost:8080/graph", {params:params1, withCredentials: true});
+}
+
 
 
 

@@ -10,6 +10,7 @@ import Footer from "./Footer";
 import CreateBudget from "../ListSpending/CreateBudget";
 import {Constants} from "../../constants/Constants";
 import EditSpending from "../Spending/EditSpending";
+import GraphSpending from "../Spending/GraphSpending";
 
 
 class PageLayout extends React.Component{
@@ -29,6 +30,7 @@ class PageLayout extends React.Component{
                     <Route exact={true} path={Routes.HOME_PAGE} component={isUserLogged ? HomePage : LoginPage}/>
                     <Route exact={true} path={Routes.ADD_NEW_BUDGET} component={isUserLogged ? CreateBudget : LoginPage}/>
                     <Route exact={true} path={Routes.CREATE_SPENDING} component={isUserLogged ? CreateSpending : LoginPage}/>
+                    <Route exact={true} path={Routes.GRAPH_SPENDING} component={isUserLogged ? GraphSpending : LoginPage}/>
                     <Route exact={true} path={Routes.CREATE_ACCOUNT} component={CreateAccount}/>
                     <Route exact={true} path={Routes.EDIT_SPENDING + "/:orderId"} component={EditSpending}/>
                 </Switch>

@@ -43,12 +43,17 @@ class NavigationBar extends Component<INavigationProps>{
                         <NavLink href={Routes.CREATE_SPENDING} disabled={!isUserLogged || this.props.userLogged.budgetExpired}>Create Spending</NavLink>
                     </NavItem>
 
+                    <NavItem>
+                        <NavLink href={Routes.GRAPH_SPENDING} disabled={!isUserLogged || this.props.userLogged.budgetExpired}>Graph</NavLink>
+                    </NavItem>
+
                     {
                         this.props.userLogged.budgetExpired &&
                         <NavItem>
                             <NavLink href={Routes.ADD_NEW_BUDGET} disabled={!isUserLogged}>Update budget</NavLink>
                         </NavItem>
                     }
+
 
                     {/*<NavItem>*/}
                         {/*<NavLink href={Routes.MY_ACCOUNT} disabled={!isUserLogged}>{getMessageResource("nav.account")}</NavLink>*/}

@@ -5,5 +5,6 @@ export const enum Routes {
     CREATE_SPENDING = "/createSpending",
     LIST_SPENDING = "/listSpending",
     ADD_NEW_BUDGET = "/addBudget",
-    EDIT_SPENDING = "/edit"
+    EDIT_SPENDING = "/edit",
+    GRAPH_SPENDING = "/graph"
 }
