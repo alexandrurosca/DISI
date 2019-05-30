@@ -3,7 +3,7 @@ import {Component} from "react";
 import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import "./CreateSpending.css";
 import {createSpending} from "../../service/restCalls";
-import {Reasons} from "../../constants/Constants";
+import {Constants, Reasons} from "../../constants/Constants";
 import {connect} from "react-redux";
 
 
@@ -11,6 +11,7 @@ interface ICreateSPendingState {
     reason: string,
     amount: string,
     date: string,
+    userLocalStorage: IUserDto
 }
 
 interface ICreateSpendingProps {
@@ -24,7 +25,9 @@ class CreateSpending extends Component<ICreateSpendingProps,ICreateSPendingState
         this.state = {
             reason: "",
             amount: "",
-            date: ""
+            date: "",
+            // @ts-ignore
+            userLocalStorage: JSON.parse(localStorage.getItem(Constants.USER_LOGGED)) as IUserDto
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -55,11 +58,11 @@ class CreateSpending extends Component<ICreateSpendingProps,ICreateSPendingState
     }
 
     public validateForm() {
-        const now = new Date();
-        const mydate = new Date(this.state.date);
+        // const now = new Date();
+        // const mydate = new Date(this.state.date);
         return this.state.reason.length > 0 && this.state.amount.length > 0
             && !isNaN(Number(this.state.amount)) && Number(this.state.amount) >= 0
-            && (now.getDate() - mydate.getDate() > 0);
+            // && (now.getDate() - mydate.getDate() > 0);
     }
 
     public render(){
@@ -71,6 +74,7 @@ class CreateSpending extends Component<ICreateSpendingProps,ICreateSPendingState
             )
         });
 
+        console.log("start: " + this.state.userLocalStorage.startDate);
 
         return(
             <div className="CreateSpending">
@@ -97,7 +101,8 @@ class CreateSpending extends Component<ICreateSpendingProps,ICreateSPendingState
                             value={this.state.date}
                             onChange={this.handleChange}
                             type="date"
-                            min={this.props.userLogged.startDate}
+                            min={this.state.userLocalStorage.startDate}
+                            max={this.state.userLocalStorage.endDate}
                         />
                     </FormGroup>
                     <Button

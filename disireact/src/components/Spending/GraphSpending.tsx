@@ -92,6 +92,7 @@ class GraphSpending extends Component<IGraphSpendingProps, IGraphSpending>{
                                     title={"Total spending each category"}
                                     labelAxisY={"RON"}
                                     label={"total"}
+                                    showAsPie={true}
                             />
                         }
                     </div>
@@ -102,6 +103,7 @@ class GraphSpending extends Component<IGraphSpendingProps, IGraphSpending>{
                                 title={"Number of spending per category"}
                                 labelAxisY={""}
                                 label={"quantity"}
+                                showAsPie={false}
                         />
                         }
                     </div>

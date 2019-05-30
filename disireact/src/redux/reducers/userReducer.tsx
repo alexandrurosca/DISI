@@ -18,7 +18,7 @@ const initialState: IUserState = {
         amount: 0,
         startDate: "",
         endDate: "",
-        budgetExpired: false
+        budgetExpired: true
     }
 };
 

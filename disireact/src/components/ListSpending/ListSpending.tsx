@@ -8,12 +8,14 @@ import {Routes} from "../../constants/Routes";
 
 interface IListSPendingProps {
     spendings: ISpendingDto[]
-    updateHome: () => any
+    updateHome: () => any,
+    myUser: IUserDto;
 }
 
 class ListSpending extends Component<IListSPendingProps>{
     constructor(props: any) {
         super(props);
+        this.inNotInteval = this.inNotInteval.bind(this);
     }
 
     public deleteSpending(id: any){
@@ -26,17 +28,25 @@ class ListSpending extends Component<IListSPendingProps>{
         })
     }
 
+
+    public inNotInteval(check: string) {
+        const ceva = ((new Date(check).getTime() <= new Date(this.props.myUser.endDate).getTime() && new Date(check).getTime() >= new Date(this.props.myUser.startDate).getTime()));
+        console.log(check + " " + ceva);
+        return ceva;
+    }
+
     public  render(){
         let list = null;
         if(this.props.spendings !== null && this.props.spendings !== undefined) {
             list = this.props.spendings.map((item, index) => {
+                const ceva = this.inNotInteval(item.date);
                 return (
                     <tr key={index}>
                         <td><b> {item.amount}</b> <i>RON</i></td>
                         <td>{item.reason}</td>
                         <td>{item.date}</td>
-                        <td><NavLink href={Routes.EDIT_SPENDING + "/" + item.spendingId}>Edit</NavLink></td>
-                        <td><Button onClick={()=>this.deleteSpending(item.spendingId)}>Delete</Button></td>
+                        <td><NavLink disabled={!ceva} href={Routes.EDIT_SPENDING + "/" + item.spendingId}>Edit</NavLink></td>
+                        <td><Button disabled={!ceva} onClick={()=>this.deleteSpending(item.spendingId)}>Delete</Button></td>
                     </tr>
                 )
             });

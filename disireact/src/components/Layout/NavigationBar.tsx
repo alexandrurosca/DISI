@@ -11,11 +11,19 @@ interface INavigationProps {
     userLogged: IUserDto
 }
 
+interface INavigationState {
+    userLocalStorage: IUserDto
+}
 
-class NavigationBar extends Component<INavigationProps>{
+
+class NavigationBar extends Component<INavigationProps, INavigationState>{
 
     constructor(props: any){
         super(props);
+        this.state = {
+            // @ts-ignore
+            userLocalStorage: JSON.parse(localStorage.getItem(Constants.USER_LOGGED)) as IUserDto
+        }
     }
 
 
@@ -30,7 +38,7 @@ class NavigationBar extends Component<INavigationProps>{
 
     public render(){
         const isUserLogged = localStorage.getItem(Constants.USER_LOGGED) !== null;
-
+        console.log("budget expired: " + this.props.userLogged.budgetExpired);
         return(
             <React.Fragment>
             <div>
@@ -40,15 +48,15 @@ class NavigationBar extends Component<INavigationProps>{
                     </NavItem>
 
                     <NavItem>
-                        <NavLink href={Routes.CREATE_SPENDING} disabled={!isUserLogged || this.props.userLogged.budgetExpired}>Create Spending</NavLink>
+                        <NavLink href={Routes.CREATE_SPENDING} disabled={!isUserLogged ||(this.state.userLocalStorage !== null && this.state.userLocalStorage.budgetExpired)}>Create Spending</NavLink>
                     </NavItem>
 
                     <NavItem>
-                        <NavLink href={Routes.GRAPH_SPENDING} disabled={!isUserLogged || this.props.userLogged.budgetExpired}>Graph</NavLink>
+                        <NavLink href={Routes.GRAPH_SPENDING} disabled={!isUserLogged || (this.state.userLocalStorage !== null && this.state.userLocalStorage.budgetExpired)}>Graph</NavLink>
                     </NavItem>
 
                     {
-                        this.props.userLogged.budgetExpired &&
+                        this.state.userLocalStorage !== null && this.state.userLocalStorage.budgetExpired &&
                         <NavItem>
                             <NavLink href={Routes.ADD_NEW_BUDGET} disabled={!isUserLogged}>Update budget</NavLink>
                         </NavItem>

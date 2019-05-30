@@ -37,6 +37,7 @@ class HomePage extends React.Component<InterfaceProps,InterfaceState>{
             console.log("asdasdasdasd: " + user);
             this.props.setUser(JSON.parse(user) as IUserDto);
         }
+
     }
 
 
@@ -64,7 +65,7 @@ class HomePage extends React.Component<InterfaceProps,InterfaceState>{
                     </tbody>
                 </table>
                 <h3>My Spendings</h3>
-                <ListSpending spendings={this.state.spendings} updateHome={this.update}/>
+                <ListSpending myUser={this.props.userLogged} spendings={this.state.spendings} updateHome={this.update}/>
             </React.Fragment>
         )
     }

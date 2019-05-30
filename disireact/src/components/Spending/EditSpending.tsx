@@ -3,7 +3,7 @@ import {Component} from "react";
 import {Button, ControlLabel, FormControl, FormGroup} from "react-bootstrap";
 import "./CreateSpending.css";
 import {editSpending, getOrderById} from "../../service/restCalls";
-import {Reasons} from "../../constants/Constants";
+import {Constants, Reasons} from "../../constants/Constants";
 import {connect} from "react-redux";
 
 
@@ -11,7 +11,8 @@ interface IEditSpendingSPendingState {
     reason: string,
     amount: string,
     date: string,
-    spendingId: number
+    spendingId: number,
+    userLocalStorage: IUserDto
 }
 
 interface IEditSpendingSpendingProps {
@@ -26,7 +27,9 @@ class EditSpending extends Component<IEditSpendingSpendingProps,IEditSpendingSPe
             reason: "",
             amount: "",
             date: "",
-            spendingId: -1
+            spendingId: -1,
+            // @ts-ignore
+            userLocalStorage: JSON.parse(localStorage.getItem(Constants.USER_LOGGED)) as IUserDto
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -80,11 +83,10 @@ class EditSpending extends Component<IEditSpendingSpendingProps,IEditSpendingSPe
     }
 
     public validateForm() {
-        const now = new Date();
-        const mydate = new Date(this.state.date);
+        // const now = new Date();
+        // const mydate = new Date(this.state.date);
         return this.state.reason.length > 0 && this.state.amount.length > 0
             && !isNaN(Number(this.state.amount)) && Number(this.state.amount) >= 0
-            && (now.getDate() - mydate.getDate() > 0);
     }
 
     public render(){
@@ -122,7 +124,8 @@ class EditSpending extends Component<IEditSpendingSpendingProps,IEditSpendingSPe
                             value={this.state.date}
                             onChange={this.handleChange}
                             type="date"
-                            min={this.props.userLogged.startDate}
+                            min={this.state.userLocalStorage.startDate}
+                            max={this.state.userLocalStorage.endDate}
                         />
                     </FormGroup>
                     <Button

@@ -56,7 +56,8 @@ public class BudgetService {
         List<Budget> budgets = budgetRepository.findByUserUserID(userId);
 
         Budget currentBudget =  budgets.stream().filter(budget ->
-                LocalDate.now().isAfter(budget.getStartDate()) && LocalDate.now().isBefore(budget.getEndDate())
+                (LocalDate.now().isAfter(budget.getStartDate()) || LocalDate.now().isEqual(budget.getStartDate())) &&
+                        (LocalDate.now().isBefore(budget.getEndDate()) || LocalDate.now().isEqual(budget.getEndDate()))
         ).findFirst().orElse(null);
 
         return currentBudget;
@@ -66,7 +67,8 @@ public class BudgetService {
         List<Budget> budgets = budgetRepository.findByUserAuthorityUsername(username);
 //TODO change with equal
         Budget currentBudget =  budgets.stream().filter(budget ->
-                LocalDate.now().isAfter(budget.getStartDate()) && LocalDate.now().isBefore(budget.getEndDate())
+                (LocalDate.now().isAfter(budget.getStartDate()) || LocalDate.now().isEqual(budget.getStartDate())) &&
+                        (LocalDate.now().isBefore(budget.getEndDate()) || LocalDate.now().isEqual(budget.getEndDate()))
         ).findFirst().orElse(null);
 
         BudgetDTO budgetDTO = new BudgetDTO();
