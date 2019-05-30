@@ -37,13 +37,13 @@
 }
 
 
-.footer {
+footer {
     position: relative;
     left: 0;
-    bottom: 0;
     width: 100%;
     /*background-color: #0379C9;*/
     /*color: white;*/
     text-align: center;
+    margin-top: 60px;
 }
 
