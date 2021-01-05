@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/chart.js": "^2.7.53",
     "@types/react-modal": "^3.6.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
     "connected-react-router": "^5.0.1",
